@@ -6,8 +6,7 @@ COPY ../src /src
 
 WORKDIR /src/api
 
-RUN dotnet restore
-RUN dotnet publish -c Release -o /app --no-restore
+RUN dotnet publish -r linux-musl-x64 -c Release -o /app
 
 FROM alpine:3.14 as runtime
 
