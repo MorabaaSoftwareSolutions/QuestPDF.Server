@@ -6,9 +6,6 @@ COPY ../src /src
 
 WORKDIR /src/api
 
-RUN dotnet add package SkiaSharp.NativeAssets.Linux --version 2.88.7
-RUN dotnet add package SkiaSharp.NativeAssets.Linux.NoDependencies --version 2.88.7
-RUN dotnet add package HarfBuzzSharp.NativeAssets.Linux --version 2.88.7
 RUN dotnet publish -r linux-musl-x64 -c Release -o /app
 
 FROM alpine:3.14 as runtime
