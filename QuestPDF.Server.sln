@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.0.31903.59
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{734FE62C-A878-4C8A-9FB2-1E381DAF4EC0}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestPDF.Server.Core", "src\core\QuestPDF.Server.Core.csproj", "{079AAB4D-FFF4-48AA-B449-9C1A01C6D910}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "QuestPDF.Server.Api", "src\api\QuestPDF.Server.Api.csproj", "{DB6A4EDD-CBCC-4AE8-A0A2-58FB858021C5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{079AAB4D-FFF4-48AA-B449-9C1A01C6D910}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{079AAB4D-FFF4-48AA-B449-9C1A01C6D910}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{079AAB4D-FFF4-48AA-B449-9C1A01C6D910}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{079AAB4D-FFF4-48AA-B449-9C1A01C6D910}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DB6A4EDD-CBCC-4AE8-A0A2-58FB858021C5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DB6A4EDD-CBCC-4AE8-A0A2-58FB858021C5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DB6A4EDD-CBCC-4AE8-A0A2-58FB858021C5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DB6A4EDD-CBCC-4AE8-A0A2-58FB858021C5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{079AAB4D-FFF4-48AA-B449-9C1A01C6D910} = {734FE62C-A878-4C8A-9FB2-1E381DAF4EC0}
+		{DB6A4EDD-CBCC-4AE8-A0A2-58FB858021C5} = {734FE62C-A878-4C8A-9FB2-1E381DAF4EC0}
+	EndGlobalSection
+EndGlobal

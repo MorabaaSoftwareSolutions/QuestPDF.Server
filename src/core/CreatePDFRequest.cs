@@ -1,0 +1,24 @@
+using QuestPDF.Server.Core.Elements;
+
+namespace QuestPDF.Server.Core;
+
+/// <summary>
+/// Represents a request to create a PDF.
+/// </summary>
+public sealed class CreatePDFRequest
+{
+    /// <summary>
+    /// Gets or sets the specifications for the page.
+    /// </summary>
+    public required PageSpecs Page { get; set; }
+
+    /// <summary>
+    /// Gets or sets the title element of the PDF.
+    /// </summary>
+    public IElement? Title { get; set; }
+
+    /// <summary>
+    /// Gets or sets the content element of the PDF.
+    /// </summary>
+    public required IElement Content { get; set; }
+}
