@@ -3,6 +3,8 @@ using QuestPDF.Server.Api;
 
 var builder = WebApplication.CreateSlimBuilder(args);
 
+builder.Configuration.AddEnvironmentVariables();
+
 var licenseType = builder.Configuration.GetValue<string>("QuestPDF:LicenseType") ?? throw new InvalidOperationException("License type is not specified");
 
 if (licenseType.Equals("community", StringComparison.InvariantCultureIgnoreCase))
