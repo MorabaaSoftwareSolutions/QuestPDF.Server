@@ -11,12 +11,12 @@ namespace QuestPDF.Server.Core;
 /// </summary>
 public sealed class PDFCreator
 {
-    private readonly IImageFetcher _imageLoader;
+    private readonly IImageFetcher _imageFetcher;
     private readonly Dictionary<int, QImage> _images = [];
 
     public PDFCreator(IImageFetcher imageLoader)
     {
-        _imageLoader = imageLoader;
+        _imageFetcher = imageLoader;
     }
 
     /// <summary>
@@ -32,11 +32,15 @@ public sealed class PDFCreator
             container.Page(page =>
             {
                 page.FromSpecs(request.Page);
-                if (request.Title is not null)
+                if (request.Header is not null)
                 {
-                    page.Header().Element(request.Title);
+                    page.Header().Element(request.Header);
                 }
                 page.Content().Element(request.Content);
+                if (request.Footer is not null)
+                {
+                    page.Footer().Element(request.Footer);
+                }
             })
         );
         var stream = new MemoryStream();
@@ -48,9 +52,13 @@ public sealed class PDFCreator
 
     private async Task LoadImagesAsync(CreatePDFRequest request, CancellationToken cancellationToken)
     {
-        if (request.Title is not null)
+        if (request.Header is not null)
         {
-            await LoadImagesAsync(request.Title, cancellationToken);
+            await LoadImagesAsync(request.Header, cancellationToken);
+        }
+        if (request.Footer is not null)
+        {
+            await LoadImagesAsync(request.Footer, cancellationToken);
         }
         await LoadImagesAsync(request.Content, cancellationToken);
     }
@@ -113,7 +121,7 @@ public sealed class PDFCreator
     {
         if (imageElement.Image is not null)
             return;
-        var bytes = await _imageLoader.LoadImageAsync(imageElement, cancellationToken);
+        var bytes = await _imageFetcher.LoadImageAsync(imageElement, cancellationToken);
         if (bytes is null || bytes.Length < 1)
         {
             throw new InvalidOperationException("Image bytes are not loaded");

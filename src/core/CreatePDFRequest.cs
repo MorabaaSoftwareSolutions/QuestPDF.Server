@@ -15,10 +15,15 @@ public sealed class CreatePDFRequest
     /// <summary>
     /// Gets or sets the title element of the PDF.
     /// </summary>
-    public IElement? Title { get; set; }
+    public IElement? Header { get; set; }
 
     /// <summary>
     /// Gets or sets the content element of the PDF.
     /// </summary>
     public required IElement Content { get; set; }
+
+    /// <summary>
+    /// Gets or sets the footer element of the PDF.
+    /// </summary>
+    public IElement? Footer { get; set; }
 }
