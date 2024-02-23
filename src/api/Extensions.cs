@@ -24,7 +24,7 @@ public static class Extensions
 
     public static WebApplication MapEndpoints(this WebApplication app)
     {
-        app.MapGet("/", () => Results.Ok("QuestPDF Server"));
+        app.MapGet("/", () => Results.Text($"QuestPDF Server v{typeof(Extensions).Assembly.GetName().Version}"));
         app.MapGet("/health", () => Results.Ok());
         app.MapPost("/pdf", Endpoints.GeneratePdfEndpoint);
         return app;

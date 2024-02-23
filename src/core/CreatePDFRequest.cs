@@ -26,4 +26,11 @@ public sealed class CreatePDFRequest
     /// Gets or sets the footer element of the PDF.
     /// </summary>
     public IElement? Footer { get; set; }
+
+    /// <summary>
+    /// Gets or sets the name of the output file.
+    /// <para />
+    /// If not specified, the output file will be named "output.pdf".
+    /// </summary>
+    public string? OutputFileName { get; set; }
 }

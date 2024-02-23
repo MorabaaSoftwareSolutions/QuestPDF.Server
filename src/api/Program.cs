@@ -16,8 +16,7 @@ else if (licenseType.Equals("enterprise", StringComparison.InvariantCultureIgnor
 else
     throw new InvalidOperationException("Invalid license type");
 
-if (builder.Environment.IsDevelopment())
-    QuestPDF.Settings.EnableDebugging = true;
+QuestPDF.Settings.EnableDebugging = builder.Environment.IsDevelopment();
 
 builder.Services.AddQuestPdfServer();
 
