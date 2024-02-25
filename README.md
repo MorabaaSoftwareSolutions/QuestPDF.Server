@@ -69,3 +69,7 @@ docker run -p 5000:5000 -e QuestPDF:LicenseType=Community questpdf/server
     }
 }
 ```
+
+## License
+
+QuestPDF Server is licensed under the [MIT License](/LICENSE).
