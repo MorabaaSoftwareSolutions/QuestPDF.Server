@@ -1,7 +1,10 @@
-FROM mcr.microsoft.com/dotnet/sdk:8.0-alpine as build
+FROM mcr.microsoft.com/dotnet/sdk:8.0-jammy-amd64 as build
 
-RUN apk update && apk upgrade
-RUN apk add clang build-base zlib-dev --no-cache
+RUN apt-get update
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test
+RUN apt-get update
+RUN apt-get install -y --only-upgrade libstdc++6
 
 COPY ../src /src
 
@@ -9,9 +12,12 @@ WORKDIR /src/api
 
 RUN dotnet publish -c Release -o /app
 
-FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine as runtime
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-jammy-amd64 as runtime
 
-RUN apk update && apk upgrade
-RUN apk add icu-libs fontconfig ttf-dejavu --no-cache
+RUN apt-get update
+RUN apt-get install -y software-properties-common
+RUN add-apt-repository ppa:ubuntu-toolchain-r/test
+RUN apt-get update
+RUN apt-get install -y --only-upgrade libstdc++6
 
 COPY --from=build /app /app

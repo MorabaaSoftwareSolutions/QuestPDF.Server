@@ -22,7 +22,7 @@ jobs:
               uses: docker/build-push-action@v4
               with:
                   context: .
-                  file: ./docker/api.Dockerfile
+                  file: ./docker/api.xplat.Dockerfile
                   tags: ${{ secrets.DOCKER_TAGS }}
                   push: ${{ github.ref == 'refs/heads/main' }}
 

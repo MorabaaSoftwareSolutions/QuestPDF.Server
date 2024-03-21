@@ -46,6 +46,8 @@ public class TextElement : Element, IElement
     /// Gets or sets the script of the text.
     /// </summary>
     public Script Script { get; set; } = Script.Normal;
+
+    public TextAlignment? Alignment { get; set; }
 }
 
 /// <summary>
@@ -66,4 +68,15 @@ public enum TextDecoration
     None,
     Underline,
     Strike,
+}
+
+/// <summary>
+/// Represents the text alignment of a text element.
+/// </summary>
+public enum TextAlignment
+{
+    Start,
+    Center,
+    End,
+    Justify,
 }

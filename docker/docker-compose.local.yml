@@ -5,9 +5,9 @@ services:
         build:
             context: ../
             dockerfile: ./docker/api.xplat.Dockerfile
-        command: "sh -c '/app/QuestPDF.Api'"
+        command: "sh -c '/app/QuestPDF.Server.Api'"
         ports:
-            - "5000:5000"
+            - "5877:5000"
         environment:
             - "Kestrel:Endpoints:Urls:Url=http://0.0.0.0:5000"
             - "QuestPDF:LicenseType=Community"
