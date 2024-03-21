@@ -40,11 +40,13 @@ internal static class QuestExtensions
 
     internal static PageDescriptor FromSpecs(this PageDescriptor page, PageSpecs specs)
     {
+        if (specs.Direction == PageSpecs.ContentDirection.RTL)
+            page.ContentFromRightToLeft();
         page.Size(specs.ParsedPageSize);
         if (specs.Margin.HasValue && specs.MarginUnit.HasValue)
             page.Margin(specs.Margin.Value, specs.MarginUnit.Value);
         page.PageColor(specs.BackgroundColor);
-        page.DefaultTextStyle(x => x.FontSize(specs.DefaultFontSize));
+        page.DefaultTextStyle(x => x.FontSize(specs.DefaultFontSize).FontFamily("Arial"));
         return page;
     }
 
@@ -223,38 +225,48 @@ internal static class QuestExtensions
             {
                 cell.ColumnSpan(cellElement.ColumnSpan.Value);
             }
-            if (cellElement.Padding.HasValue)
-            {
-                cell.Padding(cellElement.Padding.Value);
-            }
-            if (cellElement.BorderWidth.HasValue)
-            {
-                cell.Border(cellElement.BorderWidth.Value);
-            }
-            if (!string.IsNullOrWhiteSpace(cellElement.BackgroundColor))
-            {
-                cell.Background(cellElement.BackgroundColor);
-            }
-            if (cellElement.MinHeight.HasValue)
-            {
-                cell.MinHeight(cellElement.MinHeight.Value);
-            }
-            if (cellElement.MaxHeight.HasValue)
-            {
-                cell.MaxHeight(cellElement.MaxHeight.Value);
-            }
-            _ = cellElement.Alignment switch
-            {
-                CellAlignment.Top => cell.AlignTop(),
-                CellAlignment.Bottom => cell.AlignBottom(),
-                CellAlignment.Center => cell.AlignCenter(),
-                CellAlignment.Middle => cell.AlignMiddle(),
-                CellAlignment.Left => cell.AlignLeft(),
-                CellAlignment.Right => cell.AlignRight(),
-                _ => cell,
-            };
-            cell.Element(cellElement.Element);
+            cell.Element((cellContainer) => Cell(cellContainer, cellElement)).Element(cellElement.Element);
         }
         return table;
     }
+
+    private static IContainer Cell(IContainer cellContainer, Elements.Cell cellElement)
+    {
+        if (cellElement.Padding.HasValue)
+        {
+            cellContainer = cellContainer.Padding(cellElement.Padding.Value);
+        }
+        if (cellElement.BorderWidth.HasValue)
+        {
+            cellContainer = cellContainer.Border(cellElement.BorderWidth.Value);
+        }
+        if (!string.IsNullOrWhiteSpace(cellElement.BackgroundColor))
+        {
+            cellContainer = cellContainer.Background(cellElement.BackgroundColor);
+        }
+        if (cellElement.MinHeight.HasValue)
+        {
+            cellContainer = cellContainer.MinHeight(cellElement.MinHeight.Value);
+        }
+        if (cellElement.MaxHeight.HasValue)
+        {
+            cellContainer = cellContainer.MaxHeight(cellElement.MaxHeight.Value);
+        }
+        cellContainer = cellElement.VerticalAlign switch
+        {
+            CellAlignment.Top => cellContainer.AlignTop(),
+            CellAlignment.Bottom => cellContainer.AlignBottom(),
+            CellAlignment.Middle => cellContainer.AlignMiddle(),
+            _ => cellContainer,
+        };
+        cellContainer = cellElement.HorizontalAlign switch
+        {
+            CellAlignment.Center => cellContainer.AlignCenter(),
+            CellAlignment.Left => cellContainer.AlignLeft(),
+            CellAlignment.Right => cellContainer.AlignRight(),
+            _ => cellContainer,
+        };
+        return cellContainer;
+    }
+
 }

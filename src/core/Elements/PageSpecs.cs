@@ -33,6 +33,24 @@ public class PageSpecs
     /// </summary>
     public string PageSize { get; set; } = "A4";
 
+    public ContentDirection Direction { get; set; } = ContentDirection.LTR;
+
+    /// <summary>
+    /// Gets or sets the direction of the content on the page.
+    /// </summary>
+    public enum ContentDirection
+    {
+        /// <summary>
+        /// Left to right.
+        /// </summary>
+        LTR,
+
+        /// <summary>
+        /// Right to left.
+        /// </summary>
+        RTL,
+    }
+
     /// <summary>
     /// Gets the parsed page size based on the <see cref="PageSize"/>.
     /// </summary>

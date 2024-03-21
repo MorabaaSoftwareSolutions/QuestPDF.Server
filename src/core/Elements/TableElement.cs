@@ -96,7 +96,12 @@ public class Cell : Element, IElement
     /// <summary>
     /// Gets or sets the alignment of the cell.
     /// </summary>
-    public CellAlignment? Alignment { get; set; }
+    public CellAlignment? VerticalAlign { get; set; }
+
+    /// <summary>
+    /// Gets or sets the alignment of the cell.
+    /// </summary>
+    public CellAlignment? HorizontalAlign { get; set; }
 
     /// <summary>
     /// Gets or sets the row index of the cell.
