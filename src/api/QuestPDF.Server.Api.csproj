@@ -17,8 +17,6 @@
         <Nullable>enable</Nullable>
         <ImplicitUsings>enable</ImplicitUsings>
         <InvariantGlobalization>true</InvariantGlobalization>
-        <PublishAot>true</PublishAot>
-        <StripSymbols>false</StripSymbols>
     </PropertyGroup>
 
 </Project>
