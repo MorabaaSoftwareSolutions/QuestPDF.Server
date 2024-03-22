@@ -51,6 +51,8 @@ public class PageSpecs
         RTL,
     }
 
+    public string? FontFamily { get; set; }
+
     /// <summary>
     /// Gets the parsed page size based on the <see cref="PageSize"/>.
     /// </summary>

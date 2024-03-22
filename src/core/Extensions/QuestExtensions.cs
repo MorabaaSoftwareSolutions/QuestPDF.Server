@@ -46,7 +46,14 @@ internal static class QuestExtensions
         if (specs.Margin.HasValue && specs.MarginUnit.HasValue)
             page.Margin(specs.Margin.Value, specs.MarginUnit.Value);
         page.PageColor(specs.BackgroundColor);
-        page.DefaultTextStyle(x => x.FontSize(specs.DefaultFontSize).FontFamily("Arial"));
+        page.DefaultTextStyle(x =>
+        {
+            x.FontSize(specs.DefaultFontSize);
+            if (!string.IsNullOrWhiteSpace(specs.FontFamily))
+                x.FontFamily(specs.FontFamily);
+            return x;
+        });
+
         return page;
     }
 
