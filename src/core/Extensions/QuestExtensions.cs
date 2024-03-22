@@ -59,9 +59,13 @@ internal static class QuestExtensions
 
     internal static void Text(this IContainer container, TextElement textElement)
     {
-        container.Text(x =>
+        container
+        .Padding(textElement.Padding ?? 0)
+        .Text(x =>
         {
-            var text = x.Span(textElement.Text);
+            var text = x
+                .Span(textElement.Text)
+                .LetterSpacing(textElement.LetterSpacing ?? 0);
             if (textElement.Alignment.HasValue)
             {
                 if (textElement.Alignment.Value == TextAlignment.Start)

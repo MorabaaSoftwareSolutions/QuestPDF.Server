@@ -48,6 +48,16 @@ public class TextElement : Element, IElement
     public Script Script { get; set; } = Script.Normal;
 
     public TextAlignment? Alignment { get; set; }
+
+    /// <summary>
+    /// Gets or sets the padding of the text.
+    /// </summary>
+    public float? Padding { get; set; }
+
+    /// <summary>
+    /// Gets or sets the margin of the text.
+    /// </summary>
+    public float? LetterSpacing { get; set; }
 }
 
 /// <summary>
