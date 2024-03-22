@@ -8,6 +8,7 @@ services:
         command: "sh -c '/app/QuestPDF.Server.Api'"
         ports:
             - "5877:5000"
+        platform: linux/amd64
         environment:
-            - "Kestrel:Endpoints:Urls:Url=http://0.0.0.0:5000"
-            - "QuestPDF:LicenseType=Community"
+            - "Kestrel__Endpoints__Urls__Url=http://0.0.0.0:5000"
+            - "QuestPDF__LicenseType=Community"
