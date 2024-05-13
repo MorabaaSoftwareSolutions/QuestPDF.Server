@@ -1,0 +1,15 @@
+{
+  "name": "tsclient",
+  "version": "1.0.0",
+  "description": "TS/JS Client for QuestPDF.Server",
+  "main": "index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Muntadhar Haydar",
+  "license": "MIT",
+  "devDependencies": {
+    "ts-node": "^10.9.2",
+    "typescript": "^5.4.5"
+  }
+}
