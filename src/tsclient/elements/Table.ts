@@ -1,10 +1,4 @@
-import Element, { RowItemConfig } from "./Base";
-import { IColumn } from "./Column";
-import { IImage } from "./Image";
-import { IRow } from "./Row";
-import { IText } from "./Text";
-
-type AnyElement = Element<IColumn | IRow | IText | IImage | ITable>;
+import Element, { AnyElement, RowItemConfig } from "./Base";
 
 export interface ITable extends Element<ITable> {
     cells: ICell[];
