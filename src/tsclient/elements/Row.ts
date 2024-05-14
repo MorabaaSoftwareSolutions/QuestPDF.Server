@@ -1,12 +1,19 @@
 import Element, { RowItemConfig } from "./Base";
+import { IColumn } from "./Column";
+import { IImage } from "./Image";
+import { ITable } from "./Table";
+import { IText } from "./Text";
 
-export interface IRow extends Element {
-    elements: Element[];
+type AnyElement = Element<IColumn | IRow | IText | IImage | ITable>;
+
+export interface IRow extends Element<IRow> {
+    elements: AnyElement[];
     spacing: number | null;
+    build(): { $type: "row" } & Element<IRow>;
 }
 
 export default class Row implements IRow {
-    elements: Element[];
+    elements: AnyElement[];
     spacing: number | null;
     rowItemConfig?: RowItemConfig | null;
 
@@ -20,17 +27,17 @@ export default class Row implements IRow {
         return this;
     }
 
-    withElements(elements: Element[]): Row {
+    withElements(elements: AnyElement[]): Row {
         this.elements = elements;
         return this;
     }
 
-    withElement(element: Element): Row {
+    withElement(element: AnyElement): Row {
         this.elements.push(element);
         return this;
     }
 
-    withoutElement(element: Element): Row {
+    withoutElement(element: AnyElement): Row {
         this.elements = this.elements.filter((e) => e !== element);
         return this;
     }
@@ -40,7 +47,7 @@ export default class Row implements IRow {
         return this;
     }
 
-    build() {
+    build(): { $type: "row" } & Element<IRow> {
         return {
             $type: "row",
             ...this,

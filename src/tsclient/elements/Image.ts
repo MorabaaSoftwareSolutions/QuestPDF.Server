@@ -1,12 +1,13 @@
 import Element, { RowItemConfig } from "./Base";
 
-export interface IImage extends Element {
+export interface IImage extends Element<IImage> {
     source: string;
     width?: number | null;
     height?: number | null;
     fit: "Width" | "Height" | "Area" | "Unproportional";
     compressionQuality?: "Best" | "VeryHigh" | "High" | "Medium" | "Low" | "VeryLow" | null;
     dpi?: number | null;
+    build(): { $type: "image" } & Element<IImage>;
 }
 
 export default class Image implements IImage {
@@ -85,7 +86,7 @@ export default class Image implements IImage {
         return this;
     }
 
-    build(): IImage {
+    build(): { $type: "image" } & Element<IImage> {
         if (!this.source) {
             throw new Error("Image source is required");
         }

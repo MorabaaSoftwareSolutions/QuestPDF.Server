@@ -1,12 +1,19 @@
 import Element, { RowItemConfig } from "./Base";
+import { IImage } from "./Image";
+import IRow from "./Row";
+import { ITable } from "./Table";
+import { IText } from "./Text";
 
-export interface IColumn extends Element {
-    elements: Element[];
+type AnyElement = Element<IColumn | IRow | IText | IImage | ITable>;
+
+export interface IColumn extends Element<IColumn> {
+    elements: AnyElement[];
     spacing: number | null;
+    build(): { $type: "column" } & Element<IColumn>;
 }
 
 export default class Column implements IColumn {
-    elements: Element[];
+    elements: AnyElement[];
     spacing: number | null;
     rowItemConfig?: RowItemConfig | null;
 
@@ -20,17 +27,17 @@ export default class Column implements IColumn {
         return this;
     }
 
-    withElements(elements: Element[]): Column {
+    withElements(elements: AnyElement[]): Column {
         this.elements = elements;
         return this;
     }
 
-    withElement(element: Element): Column {
+    withElement(element: AnyElement): Column {
         this.elements.push(element);
         return this;
     }
 
-    withoutElement(element: Element): Column {
+    withoutElement(element: AnyElement): Column {
         this.elements = this.elements.filter((e) => e !== element);
         return this;
     }
@@ -40,7 +47,7 @@ export default class Column implements IColumn {
         return this;
     }
 
-    build() {
+    build(): { $type: "column" } & Element<IColumn> {
         return {
             $type: "column",
             ...this,

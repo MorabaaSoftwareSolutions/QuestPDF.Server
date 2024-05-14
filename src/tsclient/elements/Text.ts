@@ -1,6 +1,6 @@
 import Element, { RowItemConfig } from "./Base";
 
-export interface IText extends Element {
+export interface IText extends Element<IText> {
     text: string;
     fontSize?: number | null;
     fontWeight: "Thin" | "ExtraLight" | "Normal" | "Medium" | "SemiBold" | "Bold" | "ExtraBold" | "Black" | "ExtraBlack";
@@ -12,6 +12,8 @@ export interface IText extends Element {
     lineHeight?: number | null;
     color?: string | null;
     isItalic?: boolean | null;
+    rowItemConfig?: RowItemConfig | null;
+    build(): { $type: "text" } & Element<IText>;
 }
 
 export default class Text implements IText {
@@ -122,7 +124,7 @@ export default class Text implements IText {
         return this;
     }
 
-    build() {
+    build(): { $type: "text" } & Element<IText> {
         return {
             $type: "text",
             ...this,
