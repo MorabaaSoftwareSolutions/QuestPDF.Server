@@ -33,6 +33,16 @@ public class PageSpecs
     /// </summary>
     public string PageSize { get; set; } = "A4";
 
+    /// <summary>
+    /// Gets or sets the font family to use for the page.
+    /// </summary>
+    public string? FontFamily { get; set; }
+
+    /// <summary>
+    /// Gets or sets the font URI to use for the page.
+    /// </summary>
+    public string? FontUri { get; set; }
+
     public ContentDirection Direction { get; set; } = ContentDirection.LTR;
 
     /// <summary>
@@ -50,8 +60,6 @@ public class PageSpecs
         /// </summary>
         RTL,
     }
-
-    public string? FontFamily { get; set; }
 
     /// <summary>
     /// Gets the parsed page size based on the <see cref="PageSize"/>.

@@ -41,16 +41,22 @@ internal static class QuestExtensions
     internal static PageDescriptor FromSpecs(this PageDescriptor page, PageSpecs specs)
     {
         if (specs.Direction == PageSpecs.ContentDirection.RTL)
+        {
             page.ContentFromRightToLeft();
+        }
         page.Size(specs.ParsedPageSize);
         if (specs.Margin.HasValue && specs.MarginUnit.HasValue)
+        {
             page.Margin(specs.Margin.Value, specs.MarginUnit.Value);
+        }
         page.PageColor(specs.BackgroundColor);
         page.DefaultTextStyle(x =>
         {
             x.FontSize(specs.DefaultFontSize);
             if (!string.IsNullOrWhiteSpace(specs.FontFamily))
+            {
                 x.FontFamily(specs.FontFamily);
+            }
             return x;
         });
 
@@ -150,19 +156,31 @@ internal static class QuestExtensions
         };
 
         if (imageElement.Fit == ImageFit.Width)
+        {
             image.FitWidth();
+        }
         else if (imageElement.Fit == ImageFit.Height)
+        {
             image.FitHeight();
+        }
         else if (imageElement.Fit == ImageFit.Area)
+        {
             image.FitArea();
+        }
         else if (imageElement.Fit == ImageFit.Unproportional)
+        {
             image.FitUnproportionally();
+        }
 
         if (imageElement.CompressionQuality.HasValue)
+        {
             image.WithCompressionQuality(imageElement.CompressionQuality.Value);
+        }
 
         if (imageElement.Dpi.HasValue)
+        {
             image.WithRasterDpi(imageElement.Dpi.Value);
+        }
     }
 
     internal static void Column(this IContainer container, ColumnElement columnElement)

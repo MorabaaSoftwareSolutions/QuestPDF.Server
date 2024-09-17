@@ -12,11 +12,13 @@ namespace QuestPDF.Server.Core;
 public sealed class PDFCreator
 {
     private readonly IImageFetcher _imageFetcher;
+    private readonly IFontFetcher _fontFetcher;
     private readonly Dictionary<int, QImage> _images = [];
 
-    public PDFCreator(IImageFetcher imageLoader)
+    public PDFCreator(IImageFetcher imageLoader, IFontFetcher fontFetcher)
     {
         _imageFetcher = imageLoader;
+        _fontFetcher = fontFetcher;
     }
 
     /// <summary>
@@ -28,6 +30,7 @@ public sealed class PDFCreator
     public async Task<Stream> CreateAsync(CreatePDFRequest request, CancellationToken cancellationToken)
     {
         await LoadImagesAsync(request, cancellationToken);
+        await LoadFontAsync(request, cancellationToken);
         var doc = Document.Create(container =>
             container.Page(page =>
             {
@@ -48,6 +51,15 @@ public sealed class PDFCreator
         stream.Position = 0;
 
         return stream;
+    }
+
+    private Task LoadFontAsync(CreatePDFRequest request, CancellationToken cancellationToken)
+    {
+        if (string.IsNullOrWhiteSpace(request.Page.FontUri))
+        {
+            return Task.CompletedTask;
+        }
+        return _fontFetcher.LoadFontAsync(request.Page.FontUri, cancellationToken);
     }
 
     private async Task LoadImagesAsync(CreatePDFRequest request, CancellationToken cancellationToken)
@@ -120,7 +132,9 @@ public sealed class PDFCreator
     private async Task LoadImageAsync(ImageElement imageElement, CancellationToken cancellationToken)
     {
         if (imageElement.Image is not null)
+        {
             return;
+        }
         var bytes = await _imageFetcher.LoadImageAsync(imageElement, cancellationToken);
         if (bytes is null || bytes.Length < 1)
         {

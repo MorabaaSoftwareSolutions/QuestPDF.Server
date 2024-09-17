@@ -1,0 +1,23 @@
+[*.cs]
+
+csharp_style_prefer_primary_constructors = false
+resharper_convert_to_primary_constructor_highlighting = none 
+csharp_prefer_braces = true:warning
+csharp_style_expression_bodied_constructors = false
+csharp_style_expression_bodied_methods = false
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_close_brace = all
+csharp_object_collection_array_initializers = true
+dotnet_diagnostic.IDE0055.severity = warning
+dotnet_diagnostic.IDE0011.severity = warning
+dotnet_diagnostic.IDE0290.severity = none
+csharp_preserve_single_line_statements = false
+csharp_preserve_single_line_blocks = true
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+csharp_new_line_before_members_in_object_initializers = true
+csharp_new_line_before_members_in_anonymous_types = true
+csharp_new_line_between_query_expression_clauses = true
+resharper_convert_to_primary_constructor_highlighting = none

@@ -1,3 +1,4 @@
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using QuestPDF.Server.Core.Services;
 
@@ -11,6 +12,7 @@ public static class QuestServerExtensions
             .AddMemoryCache()
             .AddHttpClient()
             .AddSingleton<IImageFetcher, HttpImageFetcher>()
+            .AddSingleton<IFontFetcher, HttpToDiskFontFetcher>()
             .AddScoped<PDFCreator>();
     }
 }
