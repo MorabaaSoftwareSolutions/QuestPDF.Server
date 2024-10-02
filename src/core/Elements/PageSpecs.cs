@@ -41,7 +41,7 @@ public class PageSpecs
     /// <summary>
     /// Gets or sets the font URI to use for the page.
     /// </summary>
-    public string? FontUri { get; set; }
+    public string[]? FontUris { get; set; }
 
     public ContentDirection Direction { get; set; } = ContentDirection.LTR;
 

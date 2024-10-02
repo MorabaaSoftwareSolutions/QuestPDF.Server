@@ -53,13 +53,13 @@ public sealed class PDFCreator
         return stream;
     }
 
-    private Task LoadFontAsync(CreatePDFRequest request, CancellationToken cancellationToken)
+    private async Task LoadFontAsync(CreatePDFRequest request, CancellationToken cancellationToken)
     {
-        if (string.IsNullOrWhiteSpace(request.Page.FontUri))
+        if (request.Page.FontUris?.Length > 0)
         {
-            return Task.CompletedTask;
+            var tasks = request.Page.FontUris.Select(uri => _fontFetcher.LoadFontAsync(uri, cancellationToken));
+            await Task.WhenAll(tasks);
         }
-        return _fontFetcher.LoadFontAsync(request.Page.FontUri, cancellationToken);
     }
 
     private async Task LoadImagesAsync(CreatePDFRequest request, CancellationToken cancellationToken)

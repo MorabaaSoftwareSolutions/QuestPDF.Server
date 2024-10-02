@@ -12,7 +12,7 @@ public static class QuestServerExtensions
             .AddMemoryCache()
             .AddHttpClient()
             .AddSingleton<IImageFetcher, HttpImageFetcher>()
-            .AddSingleton<IFontFetcher, HttpToDiskFontFetcher>()
+            .AddSingleton<IFontFetcher, HttpFontFetcher>()
             .AddScoped<PDFCreator>();
     }
 }

@@ -52,10 +52,10 @@ internal static class QuestExtensions
         page.PageColor(specs.BackgroundColor);
         page.DefaultTextStyle(x =>
         {
-            x.FontSize(specs.DefaultFontSize);
+            x = x.FontSize(specs.DefaultFontSize);
             if (!string.IsNullOrWhiteSpace(specs.FontFamily))
             {
-                x.FontFamily(specs.FontFamily);
+                x = x.FontFamily(specs.FontFamily);
             }
             return x;
         });
@@ -72,6 +72,11 @@ internal static class QuestExtensions
             var text = x
                 .Span(textElement.Text)
                 .LetterSpacing(textElement.LetterSpacing ?? 0);
+
+            if (textElement.FontFamily is not null)
+            {
+                text.FontFamily(textElement.FontFamily);
+            }
             if (textElement.Alignment.HasValue)
             {
                 if (textElement.Alignment.Value == TextAlignment.Start)

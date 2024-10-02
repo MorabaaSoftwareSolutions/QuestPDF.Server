@@ -1,17 +1,16 @@
-
-using Microsoft.Extensions.Options;
+using QuestPDF.Drawing;
 
 namespace QuestPDF.Server.Core.Services;
 
 /// <summary>
 /// Represents a service for fetching fonts using HTTP.
 /// </summary>
-public sealed class HttpToDiskFontFetcher : IFontFetcher
+public sealed class HttpFontFetcher : IFontFetcher
 {
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly HashSet<string> _loadedFonts = new();
 
-    public HttpToDiskFontFetcher(IHttpClientFactory httpClientFactory)
+    public HttpFontFetcher(IHttpClientFactory httpClientFactory)
     {
         _httpClientFactory = httpClientFactory;
     }
@@ -31,29 +30,17 @@ public sealed class HttpToDiskFontFetcher : IFontFetcher
 
     public async Task LoadFontAsync(Uri uri, CancellationToken cancellationToken)
     {
-        var fontFileName = Path.GetFileName(uri.LocalPath);
-        var dir = Environment.SpecialFolder.LocalApplicationData.ToString();
-        Directory.CreateDirectory(dir);
-        var path = Path.Combine(dir, Path.GetFileName(uri.LocalPath));
-        if (_loadedFonts.Contains(fontFileName))
+        if (_loadedFonts.Contains(uri.AbsoluteUri))
         {
-            return;
-        }
-        if (File.Exists(path))
-        {
-            _loadedFonts.Add(fontFileName);
             return;
         }
 
         using var client = _httpClientFactory.CreateClient();
         var response = await client.GetAsync(uri, cancellationToken);
         response.EnsureSuccessStatusCode();
-        var bytes = await response.Content.ReadAsByteArrayAsync(cancellationToken);
-        if (bytes.Length < 1)
-        {
-            return;
-        }
-        await File.WriteAllBytesAsync(path, bytes, cancellationToken);
-        _loadedFonts.Add(fontFileName);
+        var stream = await response.Content.ReadAsStreamAsync(cancellationToken);
+        stream.Seek(0, SeekOrigin.Begin);
+        FontManager.RegisterFont(stream);
+        _loadedFonts.Add(uri.AbsoluteUri);
     }
 }

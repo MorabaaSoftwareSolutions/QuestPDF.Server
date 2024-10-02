@@ -18,6 +18,11 @@ public class TextElement : Element, IElement
     public float? FontSize { get; set; }
 
     /// <summary>
+    /// Gets or sets the font family of the text.
+    /// </summary>
+    public string? FontFamily { get; set; }
+
+    /// <summary>
     /// Gets or sets the color of the text.
     /// </summary>
     public string? Color { get; set; }
