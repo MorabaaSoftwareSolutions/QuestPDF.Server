@@ -32,8 +32,16 @@ public sealed class HttpToDiskFontFetcher : IFontFetcher
     public async Task LoadFontAsync(Uri uri, CancellationToken cancellationToken)
     {
         var fontFileName = Path.GetFileName(uri.LocalPath);
+        var dir = Environment.SpecialFolder.LocalApplicationData.ToString();
+        Directory.CreateDirectory(dir);
+        var path = Path.Combine(dir, Path.GetFileName(uri.LocalPath));
         if (_loadedFonts.Contains(fontFileName))
         {
+            return;
+        }
+        if (File.Exists(path))
+        {
+            _loadedFonts.Add(fontFileName);
             return;
         }
 
@@ -45,9 +53,6 @@ public sealed class HttpToDiskFontFetcher : IFontFetcher
         {
             return;
         }
-        var dir = Environment.SpecialFolder.LocalApplicationData.ToString();
-        Directory.CreateDirectory(dir);
-        var path = Path.Combine(dir, Path.GetFileName(uri.LocalPath));
         await File.WriteAllBytesAsync(path, bytes, cancellationToken);
         _loadedFonts.Add(fontFileName);
     }
