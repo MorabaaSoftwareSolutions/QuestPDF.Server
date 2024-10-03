@@ -20,6 +20,14 @@ A simple server that accepts json data and generates a PDF using [QuestPDF](http
 docker run -p 5000:5000 -e QuestPDF:LicenseType=Community questpdf/server
 ```
 
+## Docs
+
+Docs are available at [here](./docs/README.md)
+
+### Available Elements
+
+To see the available elements and their properties, check [here](./docs/elements/README.md)
+
 ## Usage
 
 ### POST /pdf
