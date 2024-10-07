@@ -20,7 +20,7 @@ Available values for `ImageFit`:
 - Width
 - Height
 - Area
-- Fill
+- Unproportional
 
 Available values for `ImageCompressionQuality`:
 
@@ -41,7 +41,7 @@ A sample JSON of an Image Element:
     "source": "https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png",
     "width": 100,
     "height": 100,
-    "fit": "fill",
+    "fit": "Unproportional",
     "compressionQuality": "high",
     "dpi": 300
 }
