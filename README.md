@@ -8,7 +8,7 @@ A simple server that accepts json data and generates a PDF using [QuestPDF](http
 
 1. Clone this repo to your local machine using
 
-2. Make sure you have [.NET 8+](https://dotnet.microsoft.com/download/dotnet/8.0) installed
+2. Make sure you have [.NET 9+](https://dotnet.microsoft.com/download/dotnet/9.0) installed
 
 3. Add `QuestPDF:LicenseType` to your environment or `appsettings.json` file. The value should be either `Community`, `Professional` or `Enterprise`.
 
