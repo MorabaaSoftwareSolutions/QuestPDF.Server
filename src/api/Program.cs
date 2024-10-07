@@ -25,7 +25,7 @@ internal class Program
         }
         else
         {
-            throw new InvalidOperationException("Invalid license type");
+            throw new InvalidOperationException("Invalid license type. Please console https://www.questpdf.com/license/ for more information.");
         }
 
         QuestPDF.Settings.EnableDebugging = builder.Environment.IsDevelopment();
