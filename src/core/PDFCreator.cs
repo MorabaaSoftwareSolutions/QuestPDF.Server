@@ -89,6 +89,14 @@ public sealed class PDFCreator
         {
             await LoadImagesAsync(rowElement, cancellationToken);
         }
+        else if (element is Cell cellElement)
+        {
+            await LoadImagesAsync(cellElement, cancellationToken);
+        }
+        else if (element is TableElement tableElement)
+        {
+            await LoadImagesAsync(tableElement, cancellationToken);
+        }
     }
 
     private async Task LoadImagesAsync(ColumnElement columnElement, CancellationToken cancellationToken)
@@ -106,6 +114,14 @@ public sealed class PDFCreator
             else if (element is RowElement rowElement)
             {
                 await LoadImagesAsync(rowElement, cancellationToken);
+            }
+            else if (element is Cell cellElement)
+            {
+                await LoadImagesAsync(cellElement, cancellationToken);
+            }
+            else if (element is TableElement tableElement)
+            {
+                await LoadImagesAsync(tableElement, cancellationToken);
             }
         }
     }
@@ -126,6 +142,38 @@ public sealed class PDFCreator
             {
                 await LoadImagesAsync(rowElement1, cancellationToken);
             }
+            else if (element is Cell cellElement)
+            {
+                await LoadImagesAsync(cellElement, cancellationToken);
+            }
+            else if (element is TableElement tableElement)
+            {
+                await LoadImagesAsync(tableElement, cancellationToken);
+            }
+        }
+    }
+
+    private async Task LoadImagesAsync(Cell cellElement, CancellationToken cancellationToken)
+    {
+        if (cellElement.Element is ImageElement imageElement)
+        {
+            await LoadImageAsync(imageElement, cancellationToken);
+        }
+        else if (cellElement.Element is ColumnElement columnElement)
+        {
+            await LoadImagesAsync(columnElement, cancellationToken);
+        }
+        else if (cellElement.Element is RowElement rowElement1)
+        {
+            await LoadImagesAsync(rowElement1, cancellationToken);
+        }
+    }
+
+    private async Task LoadImagesAsync(TableElement tableElement, CancellationToken cancellationToken)
+    {
+        foreach (var cell in tableElement.Cells)
+        {
+            await LoadImagesAsync(cell, cancellationToken);
         }
     }
 
