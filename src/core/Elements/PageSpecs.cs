@@ -43,6 +43,8 @@ public class PageSpecs
     /// </summary>
     public string[]? FontUris { get; set; }
 
+    public ContinuousSizeData? ContinuousSize { get; set; }
+
     public ContentDirection Direction { get; set; } = ContentDirection.LTR;
 
     /// <summary>
@@ -59,6 +61,12 @@ public class PageSpecs
         /// Right to left.
         /// </summary>
         RTL,
+    }
+
+    public sealed class ContinuousSizeData
+    {
+        public required float Width { get; set; }
+        public Unit? Unit { get; set; }
     }
 
     /// <summary>

@@ -44,7 +44,14 @@ internal static class QuestExtensions
         {
             page.ContentFromRightToLeft();
         }
-        page.Size(specs.ParsedPageSize);
+        if (specs.ContinuousSize is not null)
+        {
+            page.ContinuousSize(specs.ContinuousSize.Width, specs.ContinuousSize.Unit ?? Unit.Point);
+        }
+        else
+        {
+            page.Size(specs.ParsedPageSize);
+        }
         if (specs.Margin.HasValue && specs.MarginUnit.HasValue)
         {
             page.Margin(specs.Margin.Value, specs.MarginUnit.Value);
