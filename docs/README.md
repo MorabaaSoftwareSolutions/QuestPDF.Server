@@ -29,8 +29,8 @@ Allowed values for `Unit`:
 
 - `Point`
 - `Meter`
-- `Centimeter`
-- `Millimeter`
+- `Centimetre`
+- `Millimetre`
 - `Feet`
 - `Inch`
 - `Mil` // 1/1000th of an inch
