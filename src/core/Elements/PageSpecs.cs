@@ -47,6 +47,8 @@ public class PageSpecs
 
     public ContentDirection Direction { get; set; } = ContentDirection.LTR;
 
+    public PageOrientation Orientation { get; set; } = PageOrientation.Portrait;
+
     /// <summary>
     /// Gets or sets the direction of the content on the page.
     /// </summary>
@@ -61,6 +63,22 @@ public class PageSpecs
         /// Right to left.
         /// </summary>
         RTL,
+    }
+
+    /// <summary>
+    /// Gets or sets the direction of the page.
+    /// </summary>
+    public enum PageOrientation
+    {
+        /// <summary>
+        /// Portrait.
+        /// </summary>
+        Portrait,
+
+        /// <summary>
+        /// Landscape.
+        /// </summary>
+        Landscape
     }
 
     public sealed class ContinuousSizeData

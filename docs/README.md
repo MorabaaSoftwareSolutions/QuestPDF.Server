@@ -24,6 +24,7 @@ The page specs are used to configure the document. They are used to set the page
 | FontFamily | `string?` | The font family | `null` |
 | FontUris | `string[]` | The font uris | `null` |
 | Direction | `LTR` or `RTL` | The direction of the page | `LTR` |
+| Orientation | `Portrait` or `Landscape` | The orientation of the page | `Portrait` |
 
 Allowed values for `Unit`:
 

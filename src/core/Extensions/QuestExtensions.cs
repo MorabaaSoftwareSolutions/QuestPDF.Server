@@ -1,4 +1,5 @@
 using QuestPDF.Fluent;
+using QuestPDF.Helpers;
 using QuestPDF.Infrastructure;
 using QuestPDF.Server.Core.Elements;
 
@@ -50,7 +51,14 @@ internal static class QuestExtensions
         }
         else
         {
-            page.Size(specs.ParsedPageSize);
+            if (specs.Orientation == PageSpecs.PageOrientation.Landscape)
+            {
+                page.Size(specs.ParsedPageSize.Landscape());
+            }
+            else
+            {
+                page.Size(specs.ParsedPageSize.Portrait());
+            }
         }
         if (specs.Margin.HasValue && specs.MarginUnit.HasValue)
         {
