@@ -22,6 +22,7 @@ public static class Extensions
             options.SerializerOptions.Converters.Add(new JsonStringEnumConverter<TextAlignment>());
             options.SerializerOptions.Converters.Add(new JsonStringEnumConverter<ImageFit>());
             options.SerializerOptions.Converters.Add(new JsonStringEnumConverter<Script>());
+            options.SerializerOptions.Converters.Add(new JsonStringEnumConverter<PageSpecs.PageOrientation>());
             options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
         });
         Core.Extensions.QuestServerExtensions.AddQuestPdfServer(services);
