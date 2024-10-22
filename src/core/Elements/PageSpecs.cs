@@ -13,6 +13,10 @@ public class PageSpecs
     /// </summary>
     public string BackgroundColor { get; set; } = "#ffffff";
 
+    public string? BackgroundImageUri { get; set; }
+
+    internal Image? BackgroundImage { get; set; }
+
     /// <summary>
     /// Gets or sets the margin of the page.
     /// </summary>

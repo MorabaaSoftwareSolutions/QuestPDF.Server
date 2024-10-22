@@ -60,6 +60,10 @@ internal static class QuestExtensions
                 page.Size(specs.ParsedPageSize.Portrait());
             }
         }
+        if (specs.BackgroundImage is not null)
+        {
+            page.Background().ExtendHorizontal().ExtendVertical().AlignMiddle().AlignCenter().Image(specs.BackgroundImage).FitArea();
+        }
         if (specs.Margin.HasValue && specs.MarginUnit.HasValue)
         {
             page.Margin(specs.Margin.Value, specs.MarginUnit.Value);

@@ -7,7 +7,7 @@ COPY ../src /src
 
 WORKDIR /src/api
 
-RUN dotnet publish -r linux-musl-x64 -c Release -o /app
+RUN dotnet publish -r linux-musl-x64 -c Release -o /app --self-contained
 
 FROM alpine:latest AS runtime
 

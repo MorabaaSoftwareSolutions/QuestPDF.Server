@@ -72,6 +72,7 @@ public sealed class PDFCreator
         {
             await LoadImagesAsync(request.Footer, cancellationToken);
         }
+        await LoadImageAsync(request.Page, cancellationToken);
         await LoadImagesAsync(request.Content, cancellationToken);
     }
 
@@ -183,18 +184,39 @@ public sealed class PDFCreator
         {
             return;
         }
-        var bytes = await _imageFetcher.LoadImageAsync(imageElement, cancellationToken);
-        if (bytes is null || bytes.Length < 1)
-        {
-            throw new InvalidOperationException("Image bytes are not loaded");
-        }
         if (_images.TryGetValue(imageElement.GetHashCode(), out var image))
         {
             imageElement.Image = image;
             return;
         }
+        var bytes = await _imageFetcher.LoadImageAsync(imageElement, cancellationToken);
+        if (bytes is null || bytes.Length < 1)
+        {
+            throw new InvalidOperationException("Image bytes are not loaded");
+        }
         image = QImage.FromBinaryData(bytes);
         _images[imageElement.GetHashCode()] = image;
         imageElement.Image = image;
+    }
+
+    private async Task LoadImageAsync(PageSpecs pageSpecs, CancellationToken cancellationToken)
+    {
+        if (pageSpecs.BackgroundImage is not null || pageSpecs.BackgroundImageUri is null)
+        {
+            return;
+        }
+        if (_images.TryGetValue(pageSpecs.BackgroundImageUri.GetHashCode(), out var image))
+        {
+            pageSpecs.BackgroundImage = image;
+            return;
+        }
+        var bytes = await _imageFetcher.LoadImageAsync(pageSpecs.BackgroundImageUri, cancellationToken);
+        if (bytes is null || bytes.Length < 1)
+        {
+            throw new InvalidOperationException("Image bytes are not loaded");
+        }
+        image = QImage.FromBinaryData(bytes);
+        _images[pageSpecs.BackgroundImageUri.GetHashCode()] = image;
+        pageSpecs.BackgroundImage = image;
     }
 }

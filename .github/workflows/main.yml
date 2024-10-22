@@ -6,7 +6,7 @@ on:
             - main
 
 jobs:
-    build-image:
+    build-xplat-image:
         name: Build Image
         runs-on: ubuntu-latest
 
@@ -24,6 +24,29 @@ jobs:
                   context: .
                   file: ./docker/api.xplat.Dockerfile
                   tags: ${{ secrets.DOCKER_TAGS }}
+                  push: ${{ github.ref == 'refs/heads/main' }}
+
+            - name: Image digest
+              run: echo ${{ steps.docker_build.outputs.digest }}
+
+    build-alpine-image:
+        name: Build Image
+        runs-on: ubuntu-latest
+
+        steps:
+            - name: Checkout code
+              uses: actions/checkout@v4
+
+            - name: Set up Docker Buildx
+              id: buildx
+              uses: docker/setup-buildx-action@v3
+
+            - name: Build Api image
+              uses: docker/build-push-action@v5
+              with:
+                  context: .
+                  file: ./docker/api.Dockerfile
+                  tags: ${{ secrets.DOCKER_ALPINE_TAGS }}
                   push: ${{ github.ref == 'refs/heads/main' }}
 
             - name: Image digest
