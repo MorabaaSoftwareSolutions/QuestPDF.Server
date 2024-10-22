@@ -58,11 +58,20 @@ public class TextElement : Element, IElement
     /// Gets or sets the padding of the text.
     /// </summary>
     public float? Padding { get; set; }
+    public Unit? PaddingUnit { get; set; }
 
     /// <summary>
     /// Gets or sets the margin of the text.
     /// </summary>
     public float? LetterSpacing { get; set; }
+
+    public float? BorderWidth { get; set; }
+    public float? BorderTopWidth { get; set; }
+    public float? BorderRightWidth { get; set; }
+    public float? BorderBottomWidth { get; set; }
+    public float? BorderLeftWidth { get; set; }
+    public string? BorderColor { get; set; }
+    public Unit? BorderUnit { get; set; }
 }
 
 /// <summary>

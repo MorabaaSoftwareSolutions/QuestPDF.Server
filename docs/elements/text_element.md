@@ -16,6 +16,16 @@ The Text Element is a simple element that displays a text.
 | IsItalic | bool? | Whether the text should be italic | `null` |
 | TextDecoration | enum | The text decoration | `None` |
 | Script | enum | The script | `Normal` |
+| LetterSpacing | float? | The letter spacing | `null` |
+| Padding | float? | The padding | `null` |
+| PaddingUnit | enum | The padding unit | `Point` |
+| BorderUnit | enum | The border unit | `Point` |
+| BorderColor | string? | The border color | `#000000` |
+| BorderWidth | float? | The border width | `null` |
+| BorderTopWidth | float? | The top border width | `null` |
+| BorderRightWidth | float? | The right border width | `null` |
+| BorderBottomWidth | float? | The bottom border width | `null` |
+| BorderLeftWidth | float? | The left border width | `null` |
 
 Available values for `FontWeight`:
 

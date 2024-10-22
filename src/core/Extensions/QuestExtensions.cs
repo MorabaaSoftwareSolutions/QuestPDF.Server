@@ -85,7 +85,26 @@ internal static class QuestExtensions
     internal static void Text(this IContainer container, TextElement textElement)
     {
         container
-        .Padding(textElement.Padding ?? 0)
+            .Padding(textElement.Padding ?? 0, textElement.PaddingUnit ?? Unit.Point)
+            .Border(textElement.BorderWidth ?? 0, textElement.BorderUnit ?? Unit.Point)
+            .BorderColor(textElement.BorderColor ?? "#000000");
+        if (textElement.BorderBottomWidth.HasValue)
+        {
+            container.BorderBottom(textElement.BorderBottomWidth.Value, textElement.BorderUnit ?? Unit.Point);
+        }
+        if (textElement.BorderTopWidth.HasValue)
+        {
+            container.BorderTop(textElement.BorderTopWidth.Value, textElement.BorderUnit ?? Unit.Point);
+        }
+        if (textElement.BorderRightWidth.HasValue)
+        {
+            container.BorderRight(textElement.BorderRightWidth.Value, textElement.BorderUnit ?? Unit.Point);
+        }
+        if (textElement.BorderLeftWidth.HasValue)
+        {
+            container.BorderLeft(textElement.BorderLeftWidth.Value, textElement.BorderUnit ?? Unit.Point);
+        }
+        container
         .Text(x =>
         {
             var text = x
