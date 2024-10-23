@@ -84,90 +84,81 @@ internal static class QuestExtensions
 
     internal static void Text(this IContainer container, TextElement textElement)
     {
+        var borderTop = textElement.BorderTopWidth ?? textElement.BorderWidth ?? 0;
+        var borderBottom = textElement.BorderBottomWidth ?? textElement.BorderWidth ?? 0;
+        var borderLeft = textElement.BorderLeftWidth ?? textElement.BorderWidth ?? 0;
+        var borderRight = textElement.BorderRightWidth ?? textElement.BorderWidth ?? 0;
+
         container
+            .BorderTop(borderTop, textElement.BorderUnit ?? Unit.Point)
+            .BorderBottom(borderBottom, textElement.BorderUnit ?? Unit.Point)
+            .BorderLeft(borderLeft, textElement.BorderUnit ?? Unit.Point)
+            .BorderRight(borderRight, textElement.BorderUnit ?? Unit.Point)
+            .BorderColor(textElement.BorderColor ?? "#000000")
             .Padding(textElement.Padding ?? 0, textElement.PaddingUnit ?? Unit.Point)
-            .Border(textElement.BorderWidth ?? 0, textElement.BorderUnit ?? Unit.Point)
-            .BorderColor(textElement.BorderColor ?? "#000000");
-        if (textElement.BorderBottomWidth.HasValue)
-        {
-            container.BorderBottom(textElement.BorderBottomWidth.Value, textElement.BorderUnit ?? Unit.Point);
-        }
-        if (textElement.BorderTopWidth.HasValue)
-        {
-            container.BorderTop(textElement.BorderTopWidth.Value, textElement.BorderUnit ?? Unit.Point);
-        }
-        if (textElement.BorderRightWidth.HasValue)
-        {
-            container.BorderRight(textElement.BorderRightWidth.Value, textElement.BorderUnit ?? Unit.Point);
-        }
-        if (textElement.BorderLeftWidth.HasValue)
-        {
-            container.BorderLeft(textElement.BorderLeftWidth.Value, textElement.BorderUnit ?? Unit.Point);
-        }
-        container
-        .Text(x =>
-        {
-            var text = x
-                .Span(textElement.Text)
-                .LetterSpacing(textElement.LetterSpacing ?? 0);
+            .Text(x =>
+            {
+                var text = x
+                    .Span(textElement.Text)
+                    .LetterSpacing(textElement.LetterSpacing ?? 0);
 
-            if (textElement.FontFamily is not null)
-            {
-                text.FontFamily(textElement.FontFamily);
-            }
-            if (textElement.Alignment.HasValue)
-            {
-                if (textElement.Alignment.Value == TextAlignment.Start)
+                if (textElement.FontFamily is not null)
                 {
-                    x.AlignStart();
+                    text.FontFamily(textElement.FontFamily);
                 }
-                else if (textElement.Alignment.Value == TextAlignment.Center)
+                if (textElement.Alignment.HasValue)
                 {
-                    x.AlignCenter();
+                    if (textElement.Alignment.Value == TextAlignment.Start)
+                    {
+                        x.AlignStart();
+                    }
+                    else if (textElement.Alignment.Value == TextAlignment.Center)
+                    {
+                        x.AlignCenter();
+                    }
+                    else if (textElement.Alignment.Value == TextAlignment.End)
+                    {
+                        x.AlignEnd();
+                    }
+                    else if (textElement.Alignment.Value == TextAlignment.Justify)
+                    {
+                        x.Justify();
+                    }
                 }
-                else if (textElement.Alignment.Value == TextAlignment.End)
-                {
-                    x.AlignEnd();
-                }
-                else if (textElement.Alignment.Value == TextAlignment.Justify)
-                {
-                    x.Justify();
-                }
-            }
 
-            if (textElement.FontSize is not null)
-            {
-                text.FontSize(textElement.FontSize.Value);
-            }
-            if (textElement.Color is not null)
-            {
-                text.FontColor(textElement.Color);
-            }
-            if (textElement.TextDecoration == TextDecoration.Underline)
-            {
-                text.Underline();
-            }
-            else if (textElement.TextDecoration == TextDecoration.Strike)
-            {
-                text.Strikethrough();
-            }
-            if (textElement.Script == Script.Sub)
-            {
-                text.Subscript();
-            }
-            else if (textElement.Script == Script.Super)
-            {
-                text.Superscript();
-            }
-            if (textElement.LineHeight.HasValue)
-            {
-                text.LineHeight(textElement.LineHeight.Value);
-            }
-            if (textElement.IsItalic.HasValue && textElement.IsItalic.Value)
-            {
-                text.Italic();
-            }
-        });
+                if (textElement.FontSize is not null)
+                {
+                    text.FontSize(textElement.FontSize.Value);
+                }
+                if (textElement.Color is not null)
+                {
+                    text.FontColor(textElement.Color);
+                }
+                if (textElement.TextDecoration == TextDecoration.Underline)
+                {
+                    text.Underline();
+                }
+                else if (textElement.TextDecoration == TextDecoration.Strike)
+                {
+                    text.Strikethrough();
+                }
+                if (textElement.Script == Script.Sub)
+                {
+                    text.Subscript();
+                }
+                else if (textElement.Script == Script.Super)
+                {
+                    text.Superscript();
+                }
+                if (textElement.LineHeight.HasValue)
+                {
+                    text.LineHeight(textElement.LineHeight.Value);
+                }
+                if (textElement.IsItalic.HasValue && textElement.IsItalic.Value)
+                {
+                    text.Italic();
+                }
+            });
     }
 
     internal static TextSpanDescriptor ProcessFontWeight(this TextSpanDescriptor text, FontWeight fontWeight)
