@@ -181,6 +181,17 @@ internal static class QuestExtensions
 
     internal static void Image(this IContainer container, ImageElement imageElement)
     {
+        var borderTop = imageElement.BorderTopWidth ?? imageElement.BorderWidth ?? 0;
+        var borderBottom = imageElement.BorderBottomWidth ?? imageElement.BorderWidth ?? 0;
+        var borderLeft = imageElement.BorderLeftWidth ?? imageElement.BorderWidth ?? 0;
+        var borderRight = imageElement.BorderRightWidth ?? imageElement.BorderWidth ?? 0;
+
+        container = container
+            .BorderTop(borderTop, imageElement.BorderUnit ?? Unit.Point)
+            .BorderBottom(borderBottom, imageElement.BorderUnit ?? Unit.Point)
+            .BorderLeft(borderLeft, imageElement.BorderUnit ?? Unit.Point)
+            .BorderRight(borderRight, imageElement.BorderUnit ?? Unit.Point)
+            .BorderColor(imageElement.BorderColor ?? "#000000");
         var image = (imageElement.Width, imageElement.Height) switch
         {
             (not null, not null) => container.Container().Height(imageElement.Height.Value).Width(imageElement.Width.Value).Image(imageElement.Image ?? throw new InvalidOperationException("Image bytes are not loaded")),

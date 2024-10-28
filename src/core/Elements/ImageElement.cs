@@ -39,6 +39,14 @@ public class ImageElement : Element, IElement
 
     internal Image? Image { get; set; }
 
+    public float? BorderWidth { get; set; }
+    public float? BorderTopWidth { get; set; }
+    public float? BorderRightWidth { get; set; }
+    public float? BorderBottomWidth { get; set; }
+    public float? BorderLeftWidth { get; set; }
+    public string? BorderColor { get; set; }
+    public Unit? BorderUnit { get; set; }
+
     /// <summary>
     /// Overriding to generate a unique hash code for each instance of ImageElement.
     /// </summary>

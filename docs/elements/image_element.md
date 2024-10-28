@@ -14,6 +14,13 @@ The Image Element is a simple element that displays an image.
 | Fit | `ImageFit` | The fit | `Width` |
 | CompressionQuality | `ImageCompressionQuality?` | The compression quality | `null` |
 | Dpi | `int?` | Rastorizor Dpi | `null` |
+| BorderUnit | enum | The border unit | `Point` |
+| BorderColor | string? | The border color | `#000000` |
+| BorderWidth | float? | The border width | `null` |
+| BorderTopWidth | float? | The top border width | `null` |
+| BorderRightWidth | float? | The right border width | `null` |
+| BorderBottomWidth | float? | The bottom border width | `null` |
+| BorderLeftWidth | float? | The left border width | `null` |
 
 Available values for `ImageFit`:
 
