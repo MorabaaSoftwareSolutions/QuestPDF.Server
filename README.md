@@ -17,7 +17,7 @@ A simple server that accepts json data and generates a PDF using [QuestPDF](http
 ### Docker
 
 ```bash
-docker run -p 5000:5000 -e QuestPDF:LicenseType=Community questpdf/server
+docker run -p 5000:5000 -e QuestPDF:LicenseType=Community morabaasoftwaresolutions/questpdfserver:latest
 ```
 
 ## Docs
