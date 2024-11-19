@@ -29,9 +29,37 @@ public sealed class PDFCreator
     /// <returns>A stream containing the generated PDF.</returns>
     public async Task<Stream> CreateAsync(CreatePDFRequest request, CancellationToken cancellationToken)
     {
+        var doc = await CreateDocumentAsync(request, cancellationToken);
+        var stream = new MemoryStream();
+        doc.GeneratePdf(stream);
+        stream.Position = 0;
+
+        return stream;
+    }
+
+    /// <summary>
+    /// Creates a PDF asynchronously based on the provided request and returns the images in base64 format.
+    /// </summary>
+    /// <param name="request">The request containing the specifications for the PDF creation.</param>
+    /// <param name="cancellationToken">The cancellation token to cancel the operation.</param>
+    /// <returns>An array of strings containing the images in base64 format.</returns>
+    public async Task<string[]> CreatePdfImagesAsync(CreatePDFRequest request, CancellationToken cancellationToken)
+    {
+        var doc = await CreateDocumentAsync(request, cancellationToken);
+        var images = doc.GenerateImages(new Infrastructure.ImageGenerationSettings
+        {
+            RasterDpi = request.ImageRasterizationDpi ?? 300,
+        });
+
+        return images.Select(Convert.ToBase64String).ToArray();
+    }
+
+    private async Task<Infrastructure.IDocument> CreateDocumentAsync(CreatePDFRequest request, CancellationToken cancellationToken)
+    {
+
         await LoadImagesAsync(request, cancellationToken);
         await LoadFontAsync(request, cancellationToken);
-        var doc = Document.Create(container =>
+        return Document.Create(container =>
             container.Page(page =>
             {
                 page.FromSpecs(request.Page);
@@ -46,11 +74,6 @@ public sealed class PDFCreator
                 }
             })
         );
-        var stream = new MemoryStream();
-        doc.GeneratePdf(stream);
-        stream.Position = 0;
-
-        return stream;
     }
 
     private async Task LoadFontAsync(CreatePDFRequest request, CancellationToken cancellationToken)

@@ -33,4 +33,11 @@ public sealed class CreatePDFRequest
     /// If not specified, the output file will be named "output.pdf".
     /// </summary>
     public string? OutputFileName { get; set; }
+
+    /// <summary>
+    /// If accept header was set to images, this property will be used to specify the DPI for the rasterization of the images.
+    /// <para />
+    /// If not specified, the default DPI of 300 will be used.
+    /// </summary>
+    public int? ImageRasterizationDpi { get; set; }
 }
