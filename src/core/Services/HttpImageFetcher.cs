@@ -29,13 +29,17 @@ public sealed class HttpImageFetcher : IImageFetcher
         {
             throw new ArgumentException("The URI cannot be null or whitespace.", nameof(uri));
         }
+        uri = uri.Trim();
         if (_cache.TryGetValue<byte[]>(uri, out var cachedImage) && cachedImage is not null)
         {
             return cachedImage;
         }
         using var client = _httpClientFactory.CreateClient();
         var response = await client.GetAsync(uri, cancellationToken);
-        response.EnsureSuccessStatusCode();
+        if (!response.IsSuccessStatusCode)
+        {
+            throw new HttpRequestException($"The request to {uri} failed with status code {response.StatusCode}.");
+        }
         var bytes = await response.Content.ReadAsByteArrayAsync(cancellationToken);
         _cache.Set(uri, bytes, TimeSpan.FromMinutes(15));
         return bytes;

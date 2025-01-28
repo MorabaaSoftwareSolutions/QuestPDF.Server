@@ -1,3 +1,5 @@
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using QuestPDF.Infrastructure;
 using QuestPDF.Server.Api;
 
@@ -8,6 +10,17 @@ internal class Program
         var builder = WebApplication.CreateSlimBuilder(args);
 
         builder.Configuration.AddEnvironmentVariables();
+        builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =>
+        {
+            options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        });
+
+        builder.Services.ConfigureHttpJsonOptions(options =>
+        {
+            options.SerializerOptions.Converters.Add(new JsonStringEnumConverter());
+            options.SerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+        });
 
         var licenseType = builder.Configuration.GetValue<string>("QuestPDF:LicenseType") ?? throw new InvalidOperationException("License type is not specified");
 
