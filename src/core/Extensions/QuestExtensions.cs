@@ -16,7 +16,7 @@ internal static class QuestExtensions
         {
             container.Text(textElement);
         }
-        else if (element is ImageElement imageElement)
+        else if (element is ImageElement imageElement && imageElement.Image is not null)
         {
             container.Image(imageElement);
         }

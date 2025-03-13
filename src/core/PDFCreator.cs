@@ -48,6 +48,8 @@ public sealed class PDFCreator
         var doc = await CreateDocumentAsync(request, cancellationToken);
         var images = doc.GenerateImages(new Infrastructure.ImageGenerationSettings
         {
+            ImageFormat = Infrastructure.ImageFormat.Jpeg,
+            ImageCompressionQuality = Infrastructure.ImageCompressionQuality.High,
             RasterDpi = request.ImageRasterizationDpi ?? 300,
         });
 
